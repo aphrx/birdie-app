@@ -14,6 +14,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import { useEffect } from "react";
 import { fetchProfile } from "./api/fetch";
 import { userState } from "./api/atoms";
+import NotificationScreen from "./screens/NotificationScreen";
 
 
 const Tab = createBottomTabNavigator();
@@ -97,7 +98,7 @@ const MainScreen = () => {
   />
   <Tab.Screen
     name="Notifications"
-    component={SearchScreen}
+    component={NotificationScreen}
     options={{
       tabBarIcon: ({ color }) => (
         <FontAwesome5 name="bell" size={25} color={color} />

@@ -11,3 +11,8 @@ export const userState = atom({
   key: "userState",
   default: []
 });
+
+export const notificationState = atom({
+  key: "notificationState",
+  default: []
+});

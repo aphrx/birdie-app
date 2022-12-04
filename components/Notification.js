@@ -1,12 +1,9 @@
 import { View, Text, StyleSheet } from "react-native";
-import { RichEditor } from "react-native-pell-rich-editor";
-import RenderHtml from "react-native-render-html";
 import Avatar from "./Avatar";
-import dateFormat from "dateformat";
-// import image from "../assets/drake.jpg";
-import TootIcon from "./TootIcon";
+import RenderHtml from "react-native-render-html";
 
-export default Toot = (props) => {
+
+export default Notification = (props) => {
   return (
     <View>
       <View style={styles.container}>
@@ -23,12 +20,11 @@ export default Toot = (props) => {
                   {"@" + props.data.account.username}
                 </Text>
                 <View style={styles.timeDivider} />
-                <Text style={styles.time}>{dateFormat(props.data.account.created_at, "m/d/yy")}</Text>
+                <Text style={styles.time}>{"1h"}</Text>
               </View>
             </View>
             <View style={styles.contentContainer}>
-              {/* <Text>{props.data.content}</Text> */}
-              <RenderHtml
+            {/* <RenderHtml
                 source={{
                   html:
                     "<div style='font-family: HelveticaNeue; font-size: 16px;'>" +
@@ -36,24 +32,7 @@ export default Toot = (props) => {
                       .replace("<p>", "<span>")
                       .replace("</p>", "</span>") +
                     "</div>",
-                }}
-              />
-            </View>
-
-            <View style={styles.iconContainer}>
-              <TootIcon
-                icon={"comment-outline"}
-                value={props.data.replies_count}
-              />
-              <TootIcon
-                icon={"repeat-variant"}
-                value={props.data.reblogs_count}
-              />
-              <TootIcon
-                icon={"heart-outline"}
-                value={props.data.favourites_count}
-              />
-              <TootIcon icon={"share-outline"} />
+                }} /> */}
             </View>
           </View>
         </View>
