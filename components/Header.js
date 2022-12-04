@@ -1,17 +1,19 @@
 import { View, Image, StyleSheet } from "react-native";
 
-export default Avatar = (props) => {
+export default Header = (props) => {
   return (
     <View>
-      <Image style={styles.header} source={{uri: props.src}}/>
+      <Image style={styles.header} source={{uri: props.src}} resizeMode='stretch'
+/>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
-    width: 50,
-    height: 50,
-    borderRadius: 50
+    height:130
   },
+  container: {
+    backgroundColor: "blue"
+  }
 });

@@ -1,7 +1,7 @@
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { useRecoilState } from 'recoil';
 import { homeFeedState } from "../api/atoms";
-import Tweet from "../components/Tweet";
+import Toot from "../components/Toot";
 import { ScrollView } from "react-native-gesture-handler";
 import { useEffect } from "react";
 import { fetchTimeline } from "../api/fetch";
@@ -22,9 +22,9 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <ScrollView>
         {
-        homeFeed.map((tweet) => (
-          <TouchableOpacity onPress={() => navigation.navigate('Toot', {toot: tweet})}>
-            <Tweet data={tweet} />
+        homeFeed.map((toot) => (
+          <TouchableOpacity onPress={() => navigation.navigate('Toot', {toot: toot})}>
+            <Toot data={toot} />
             </TouchableOpacity>
           ))
         }

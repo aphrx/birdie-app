@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { View, Image } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 import { RootSiblingParent } from "react-native-root-siblings";
 import { RecoilRoot, useRecoilState } from "recoil";
 import { NavigationContainer, DarkTheme } from "@react-navigation/native";
@@ -14,6 +14,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import { useEffect } from "react";
 import { fetchProfile } from "./api/fetch";
 import { userState } from "./api/atoms";
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -62,7 +63,7 @@ const MainScreen = () => {
   initialRouteName="Home"
   tabBarOptions={{ showLabel: false }}
   screenOptions={{
-    tabBarActiveTintColor: 'black'
+    tabBarActiveTintColor: 'black',
   }}
 >
   <Tab.Screen
@@ -78,6 +79,10 @@ const MainScreen = () => {
           source={require("./assets/logo.png")}
         />
       ),
+      // headerLeft: (props) => 
+      // <TouchableOpacity onClick={() => navigator.na}>
+      //   <FontAwesome5 name="user" size={25}/>
+      //   </TouchableOpacity>
     }}
   />
   <Tab.Screen
@@ -116,8 +121,8 @@ const MainScreen = () => {
         <FontAwesome5 name="user" size={25} color={color} />
         // <Avatar src={user.avatar} size={25}/>
       ),
-      headerTitle: user.display_name
-      // headerShown: false
+      headerTitle: user.display_name,
+      headerShown: false
     }}
   />
   </Tab.Navigator>

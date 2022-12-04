@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet } from "react-native";
-import Tweet from "../components/Tweet";
+import Toot from "../components/Toot";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { fetchTimeline } from "../api/fetch";
 
@@ -11,7 +11,7 @@ const TootScreen = ({ route, navigation }) => {
     <View style={styles.container}>
       <ScrollView>
         {console.log(toot)}
-        <Tweet data={toot} />
+        <Toot data={toot} />
       </ScrollView>
     </View>
   );

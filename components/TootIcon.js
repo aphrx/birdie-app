@@ -4,7 +4,7 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const finalText = 0;
 
-export default TweetIcon = (props) => {
+export default TootIcon = (props) => {
   return (
     <TouchableOpacity
       style={{
