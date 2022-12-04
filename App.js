@@ -26,6 +26,7 @@ const App = () => {
 
   return (
     <RecoilRoot>
+      
       <RootSiblingParent>
         <View style={{ flex: 1, backgroundColor: "#000" }}>
           <StatusBar backgroundColor="black" barStyle="light-content"/>

@@ -24,7 +24,7 @@ const ProfileScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="light"/>
+      {/* <StatusBar style="light"/> */}
 
       <ScrollView>
         <View>

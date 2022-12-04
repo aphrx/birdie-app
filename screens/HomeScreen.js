@@ -5,6 +5,7 @@ import Toot from "../components/Toot";
 import { ScrollView } from "react-native-gesture-handler";
 import { useEffect } from "react";
 import { fetchTimeline } from "../api/fetch";
+import { StatusBar } from "expo-status-bar";
 
 const HomeScreen = ({ navigation }) => {
 
