@@ -2,6 +2,8 @@ import { View, Text, StyleSheet } from "react-native";
 import Avatar from "./Avatar";
 import RenderHtml, { RenderHTML } from "react-native-render-html";
 import { FontAwesome5 } from "@expo/vector-icons";
+import User from "./User";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default Notification = (props) => {
   return (
@@ -24,19 +26,13 @@ export default Notification = (props) => {
             style={styles.avatar}
           />
           <View style={styles.innerContainer}>
-            <View style={styles.headerContainer}>
-              <View style={styles.subHeaderContainer}>
-                <Text style={styles.name}>
-                  {props.data.account.display_name.substring(0, 18) +
-                    (props.data.account.display_name.length > 18 ? "..." : "")}
-                </Text>
-                <Text style={styles.username}>
-                  {"@" + props.data.account.username}
-                </Text>
-                <View style={styles.timeDivider} />
-                              <Text style={styles.time}>{"1h"}</Text>
-
-              </View>
+            <View style={styles.userCard}>
+              <User data={props.data} />
+                {props.data.type == "follow" ? (<TouchableOpacity style={styles.followButton}>
+                  <Text style={styles.followText}>Follow</Text>
+                </TouchableOpacity>): <></>}
+              
+              
             </View>
             <View style={styles.contentContainer}>
               {props.data.type == "mention" ? (
@@ -61,7 +57,7 @@ export default Notification = (props) => {
 };
 
 const Mention = (data) => {
-  console.log(data)
+  console.log(data);
   return (
     <RenderHTML
       source={{
@@ -80,7 +76,6 @@ const styles = StyleSheet.create({
   container: { paddingVertical: 10, paddingHorizontal: 15 },
   name: { fontSize: 16, fontWeight: "500" },
   username: {
-    paddingLeft: 5,
     color: "darkgray",
   },
   outerContainer: {
@@ -102,21 +97,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "space-between",
-  },
-  subHeaderContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  timeDivider: {
-    backgroundColor: "darkgray",
-    marginHorizontal: 4,
-    width: 1.5,
-    height: 1.5,
-    borderRadius: 3,
-  },
-  time: {
-    color: "darkgray",
   },
   contentContainer: {
     flex: 1,
@@ -152,4 +132,18 @@ const styles = StyleSheet.create({
     padding: 2,
     paddingRight: 5,
   },
+  followButton:{
+    backgroundColor: 'black',
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+    borderRadius: 20
+  },
+  followText: {
+    color: "white",
+
+  },
+  userCard: {
+    flex:1, 
+    flexDirection: "row"
+  }
 });

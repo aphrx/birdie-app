@@ -1,14 +1,28 @@
-import { Text, View, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { FontAwesome5 } from "@expo/vector-icons"
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { StatusBar } from "expo-status-bar";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { trendState } from "../api/atoms";
+import { useRecoilState } from "recoil";
+import { useEffect } from "react";
+import { fetchTrends } from "../api/fetch";
+import Trend from "../components/Trend";
 
 const SearchScreen = ({ navigation }) => {
+  const [trends, setTrends] = useRecoilState(trendState);
+
+  useEffect(async () => {
+    async function fetchData() {
+      const res = await fetchTrends();
+      setTrends(res);
+    }
+    fetchData();
+  }, []);
+
   return (
     <View style={styles.container}>
-      <SafeAreaView>
-      </SafeAreaView>
+      <ScrollView>
+        {trends.map((trend) => (
+          <Trend data={trend} />
+        ))}
+      </ScrollView>
     </View>
   );
 };

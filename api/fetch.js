@@ -19,3 +19,8 @@ export const fetchNotifications = async () => {
   const response =  await axios.get('https://mas.to/api/v1/notifications', { headers : params } )
   return response.data;
 };
+
+export const fetchTrends = async () => {
+  const response =  await axios.get('https://mas.to/api/v1/trends/tags', { headers : params } )
+  return response.data;
+}

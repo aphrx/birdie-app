@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { fetchProfile } from "./api/fetch";
 import { userState } from "./api/atoms";
 import NotificationScreen from "./screens/NotificationScreen";
+import { SearchBar } from 'react-native-elements';
 
 
 const Tab = createBottomTabNavigator();
@@ -105,7 +106,7 @@ const MainScreen = () => {
       ),
     }}
   />
-  <Tab.Screen
+  {/* <Tab.Screen
     name="Messages"
     component={SearchScreen}
     options={{
@@ -113,7 +114,7 @@ const MainScreen = () => {
         <FontAwesome5 name="envelope" size={25} color={color} />
       ),
     }}
-  />
+  /> */}
   <Tab.Screen
     name="Profile"
     component={ProfileScreen}
