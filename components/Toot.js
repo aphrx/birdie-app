@@ -26,35 +26,7 @@ export default Toot = (props) => {
                 <Text style={styles.time}>{dateFormat(props.data.account.created_at, "m/d/yy")}</Text>
               </View>
             </View>
-            <View style={styles.contentContainer}>
-              {/* <Text>{props.data.content}</Text> */}
-              <RenderHtml
-                source={{
-                  html:
-                    "<div style='font-family: HelveticaNeue; font-size: 16px;'>" +
-                    props.data.content
-                      .replace("<p>", "<span>")
-                      .replace("</p>", "</span>") +
-                    "</div>",
-                }}
-              />
-            </View>
-
-            <View style={styles.iconContainer}>
-              <TootIcon
-                icon={"comment-outline"}
-                value={props.data.replies_count}
-              />
-              <TootIcon
-                icon={"repeat-variant"}
-                value={props.data.reblogs_count}
-              />
-              <TootIcon
-                icon={"heart-outline"}
-                value={props.data.favourites_count}
-              />
-              <TootIcon icon={"share-outline"} />
-            </View>
+            <InnerTweet data={props.data}/>
           </View>
         </View>
       </View>
@@ -69,6 +41,41 @@ export default Toot = (props) => {
     </View>
   );
 };
+
+const InnerTweet = ({ data }) => {
+  return (<>
+    <View style={styles.contentContainer}>
+    <RenderHtml
+      source={{
+        html:
+          "<div style='font-family: HelveticaNeue; font-size: 16px;'>" +
+          data.content
+            .replace("<p>", "<span>")
+            .replace("</p>", "</span>") +
+          "</div>",
+      }}
+    />
+  </View>
+
+  <View style={styles.iconContainer}>
+    <TootIcon
+      icon={"comment-outline"}
+      value={data.replies_count}
+    />
+    <TootIcon
+      icon={"repeat-variant"}
+      value={data.reblogs_count}
+    />
+    <TootIcon
+      icon={"heart-outline"}
+      value={data.favourites_count}
+    />
+    <TootIcon icon={"share-outline"} />
+  </View>
+  </>
+  )
+  
+}
 
 const styles = StyleSheet.create({
   container: { paddingVertical: 10, paddingHorizontal: 15 },

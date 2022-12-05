@@ -1,14 +1,28 @@
 import { View, Text, StyleSheet } from "react-native";
 import Avatar from "./Avatar";
-import RenderHtml from "react-native-render-html";
-
+import RenderHtml, { RenderHTML } from "react-native-render-html";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 export default Notification = (props) => {
   return (
     <View>
       <View style={styles.container}>
+        <View style={styles.notificationHeader}>
+          <FontAwesome5
+            name={"user-plus"}
+            color={"darkgray"}
+            style={styles.notificationIcon}
+          />
+          <Text style={styles.notificationText}>
+            {props.data.account.display_name} {props.data.type}ed you
+          </Text>
+        </View>
+
         <View style={styles.outerContainer}>
-          <Avatar src={props.data.account.avatar_static} style={styles.avatar} />
+          <Avatar
+            src={props.data.account.avatar_static}
+            style={styles.avatar}
+          />
           <View style={styles.innerContainer}>
             <View style={styles.headerContainer}>
               <View style={styles.subHeaderContainer}>
@@ -20,19 +34,16 @@ export default Notification = (props) => {
                   {"@" + props.data.account.username}
                 </Text>
                 <View style={styles.timeDivider} />
-                <Text style={styles.time}>{"1h"}</Text>
+                              <Text style={styles.time}>{"1h"}</Text>
+
               </View>
             </View>
             <View style={styles.contentContainer}>
-            {/* <RenderHtml
-                source={{
-                  html:
-                    "<div style='font-family: HelveticaNeue; font-size: 16px;'>" +
-                    props.data.content
-                      .replace("<p>", "<span>")
-                      .replace("</p>", "</span>") +
-                    "</div>",
-                }} /> */}
+              {props.data.type == "mention" ? (
+                <Mention data={props.data}></Mention>
+              ) : (
+                <></>
+              )}
             </View>
           </View>
         </View>
@@ -46,6 +57,22 @@ export default Notification = (props) => {
         }}
       />
     </View>
+  );
+};
+
+const Mention = (data) => {
+  console.log(data)
+  return (
+    <RenderHTML
+      source={{
+        html:
+          "<div style='font-family: HelveticaNeue; font-size: 16px;'>" +
+          data.data.status.content
+            .replace("<p>", "<span>")
+            .replace("</p>", "</span>") +
+          "</div>",
+      }}
+    />
   );
 };
 
@@ -109,6 +136,20 @@ const styles = StyleSheet.create({
   avatar: {
     width: 50,
     height: 50,
-    borderRadius: 50
+    borderRadius: 50,
+  },
+  notificationText: {
+    color: "darkgray",
+    fontFamily: "HelveticaNeue",
+  },
+  notificationHeader: {
+    flex: 1,
+    flexDirection: "row",
+    paddingBottom: 10,
+    marginLeft: 40,
+  },
+  notificationIcon: {
+    padding: 2,
+    paddingRight: 5,
   },
 });
