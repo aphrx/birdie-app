@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ShadowPropTypesIOS } from "react-native";
 import Avatar from "./Avatar";
 import RenderHtml, { RenderHTML } from "react-native-render-html";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -41,6 +41,7 @@ export default Notification = (props) => {
                 <></>
               )}
             </View>
+
           </View>
         </View>
       </View>

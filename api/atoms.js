@@ -20,3 +20,8 @@ export const trendState = atom({
   key: "trendState",
   default: []
 });
+
+export const userTootState = atom({
+  key: "userTootState",
+  default: []
+});

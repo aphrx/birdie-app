@@ -95,6 +95,7 @@ const MainScreen = () => {
       tabBarIcon: ({ color }) => (
         <FontAwesome5 name="search" size={25} color={color} />
       ),
+    
     }}
   />
   <Tab.Screen
@@ -118,7 +119,7 @@ const MainScreen = () => {
   <Tab.Screen
     name="Profile"
     component={ProfileScreen}
-    
+    initialParams={{user: user}}
     options={{
       tabBarIcon: ({ color }) => (
         <FontAwesome5 name="user" size={25} color={color} />

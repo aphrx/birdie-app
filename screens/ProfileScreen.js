@@ -1,31 +1,38 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useRecoilState } from "recoil";
-import { userState } from "../api/atoms";
-import { fetchProfile } from "../api/fetch";
+import { userState, userTootState } from "../api/atoms";
+import { fetchProfile, fetchToots } from "../api/fetch";
 import { useEffect } from "react";
 import Header from "../components/Header";
 import { ScrollView } from "react-native-gesture-handler";
 import Avatar from "../components/Avatar";
 import dateFormat from "dateformat";
-import { StatusBar } from "expo-status-bar";
+import RenderHTML from "react-native-render-html";
+import Toot from "../components/Toot";
 
 const ProfileScreen = ({ navigation }) => {
   const [user, setUser] = useRecoilState(userState);
-
+  const [toots, setToots] = useRecoilState(userTootState);
   useEffect(async () => {
     async function fetchData() {
       const res = await fetchProfile();
       setUser(res);
+      return res.id;
     }
-    fetchData();
+
+    async function fetchTootData(id) {
+      const tootRes = await fetchToots(id);
+      console.log(tootRes);
+      setToots(tootRes);
+    }
+    userId = await fetchData();
+    fetchTootData(userId);
   }, []);
 
   return (
     <View style={styles.container}>
-      {/* <StatusBar style="light"/> */}
-
       <ScrollView>
         <View>
           <Header
@@ -38,17 +45,31 @@ const ProfileScreen = ({ navigation }) => {
             <Text style={styles.displayName}>{user.display_name}</Text>
             <View style={styles.subHeader}>
               <Text style={styles.username}>{"@" + user.acct}</Text>
+              <View style={styles.bio}>
+                <RenderHTML
+                  source={{
+                    html:
+                      "<div style='font-family: HelveticaNeue; font-size: 16px;'>" +
+                      user.note
+                        .replace("<p>", "<span>")
+                        .replace("</p>", "</span>") +
+                      "</div>",
+                  }}
+                />
+              </View>
               <View style={styles.date}>
                 <FontAwesome5
                   name="calendar"
                   color="darkgray"
                   style={styles.calIcon}
                 />
+
                 <Text style={styles.username}>
                   {"Joined " + dateFormat(user.created_at, "longDate")}
                 </Text>
               </View>
             </View>
+
             <View style={styles.followMetaHeader}>
               <View style={styles.userStats}>
                 <View style={styles.followHeader}>
@@ -65,6 +86,10 @@ const ProfileScreen = ({ navigation }) => {
             </View>
           </View>
         </View>
+        {toots.map((toot) => (
+          
+          <Toot data={toot} />
+        ))}
       </ScrollView>
     </View>
   );
@@ -80,9 +105,10 @@ const styles = StyleSheet.create({
   },
   subHeader: {
     flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: "column",
+  },
+  bio: {
+    paddingVertical: 10,
   },
   displayName: {
     fontWeight: "bold",
@@ -124,15 +150,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontFamily: "HelveticaNeue",
     color: "darkgray",
-    marginRight: 10
+    marginRight: 10,
   },
   followTitle: {
     color: "darkgray",
   },
-  followMetaHeader:{
+  followMetaHeader: {
     flexDirection: "row",
-    
-  }
+  },
 });
 
 export default ProfileScreen;

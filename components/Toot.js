@@ -5,65 +5,85 @@ import Avatar from "./Avatar";
 import dateFormat from "dateformat";
 // import image from "../assets/drake.jpg";
 import TootIcon from "./TootIcon";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default Toot = (props) => {
   return (
-    <View>
-      <View style={styles.container}>
-        <View style={styles.outerContainer}>
-          <Avatar src={props.data.account.avatar_static} style={styles.avatar} />
-          <View style={styles.innerContainer}>
-            <User data={props.data}/>
-            <InnerTweet data={props.data}/>
-          </View>
+    <>
+      <View>
+        <View style={styles.container}>
+          {console.log("DATTAAA")}
+          {console.log(props.data)}
+          {props.data.reblog != undefined ? (
+            <>
+              <View style={styles.notificationHeader}>
+                <MaterialCommunityIcons
+                  name={"repeat-variant"}
+                  color={"darkgray"}
+                  size={18}
+                  style={styles.notificationIcon}
+                />
+                <Text style={styles.notificationText}>
+                  {props.data.account.display_name} reboosted
+                </Text>
+              </View>
+              <TootBody data={props.data.reblog} />
+            </>
+          ) : (
+            <>
+            <TootBody data={props.data} /></>
+          )}
+          
         </View>
+        <View
+          style={{
+            borderBottomColor: "#f2f2f2",
+            borderBottomWidth: 1,
+            marginLeft: 0,
+            marginRight: 0,
+          }}
+        />
       </View>
-      <View
-        style={{
-          borderBottomColor: "#f2f2f2",
-          borderBottomWidth: 1,
-          marginLeft: 0,
-          marginRight: 0,
-        }}
-      />
+    </>
+  );
+};
+
+const TootBody = ({data}) => {
+  return (
+    <View style={styles.outerContainer}>
+      {console.log(data)}
+      <Avatar src={data.account.avatar_static} style={styles.avatar} />
+      <View style={styles.innerContainer}>
+        <User data={data} />
+        <InnerTweet data={data} />
+      </View>
     </View>
   );
 };
 
 const InnerTweet = ({ data }) => {
-  return (<>
-    <View style={styles.contentContainer}>
-    <RenderHtml
-      source={{
-        html:
-          "<div style='font-family: HelveticaNeue; font-size: 16px;'>" +
-          data.content
-            .replace("<p>", "<span>")
-            .replace("</p>", "</span>") +
-          "</div>",
-      }}
-    />
-  </View>
+  return (
+    <>
+      <View style={styles.contentContainer}>
+        <RenderHtml
+          source={{
+            html:
+              "<div style='font-family: HelveticaNeue; font-size: 16px;'>" +
+              data.content.replace("<p>", "<span>").replace("</p>", "</span>") +
+              "</div>",
+          }}
+        />
+      </View>
 
-  <View style={styles.iconContainer}>
-    <TootIcon
-      icon={"comment-outline"}
-      value={data.replies_count}
-    />
-    <TootIcon
-      icon={"repeat-variant"}
-      value={data.reblogs_count}
-    />
-    <TootIcon
-      icon={"heart-outline"}
-      value={data.favourites_count}
-    />
-    <TootIcon icon={"share-outline"} />
-  </View>
-  </>
-  )
-  
-}
+      <View style={styles.iconContainer}>
+        <TootIcon icon={"comment-outline"} value={data.replies_count} />
+        <TootIcon icon={"repeat-variant"} value={data.reblogs_count} />
+        <TootIcon icon={"heart-outline"} value={data.favourites_count} />
+        <TootIcon icon={"share-outline"} />
+      </View>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   container: { paddingVertical: 10, paddingHorizontal: 15 },
@@ -125,6 +145,20 @@ const styles = StyleSheet.create({
   avatar: {
     width: 50,
     height: 50,
-    borderRadius: 50
+    borderRadius: 50,
+  },
+  notificationText: {
+    color: "darkgray",
+    fontFamily: "HelveticaNeue",
+  },
+  notificationHeader: {
+    flex: 1,
+    flexDirection: "row",
+    paddingBottom: 10,
+    marginLeft: 40,
+  },
+  notificationIcon: {
+    paddingRight: 5,
+
   },
 });
