@@ -4,6 +4,7 @@ import RenderHtml, { RenderHTML } from "react-native-render-html";
 import { FontAwesome5 } from "@expo/vector-icons";
 import User from "./User";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { InnerTweet } from "./Toot";
 
 export default Notification = (props) => {
   return (
@@ -60,16 +61,7 @@ export default Notification = (props) => {
 const Mention = (data) => {
   console.log(data);
   return (
-    <RenderHTML
-      source={{
-        html:
-          "<div style='font-family: HelveticaNeue; font-size: 16px;'>" +
-          data.data.status.content
-            .replace("<p>", "<span>")
-            .replace("</p>", "</span>") +
-          "</div>",
-      }}
-    />
+    <InnerTweet data={data.data.status} />
   );
 };
 

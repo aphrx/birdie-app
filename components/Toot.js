@@ -31,9 +31,9 @@ export default Toot = (props) => {
             </>
           ) : (
             <>
-            <TootBody data={props.data} /></>
+              <TootBody data={props.data} />
+            </>
           )}
-          
         </View>
         <View
           style={{
@@ -48,7 +48,7 @@ export default Toot = (props) => {
   );
 };
 
-const TootBody = ({data}) => {
+const TootBody = ({ data }) => {
   return (
     <View style={styles.outerContainer}>
       {console.log(data)}
@@ -61,7 +61,13 @@ const TootBody = ({data}) => {
   );
 };
 
-const InnerTweet = ({ data }) => {
+export const InnerTweet = ({ data }) => {
+  // const tagsStyles = {
+  //   a: {
+  //     color: 'green',
+  //   }
+  // };
+
   return (
     <>
       <View style={styles.contentContainer}>
@@ -69,9 +75,10 @@ const InnerTweet = ({ data }) => {
           source={{
             html:
               "<div style='font-family: HelveticaNeue; font-size: 16px;'>" +
-              data.content.replace("<p>", "<span>").replace("</p>", "</span>") +
+              data.content.replace("<p>", "<span>").replaceAll("</p>", "</span>").replaceAll("<a", "<a style='text-decoration: none'") +
               "</div>",
           }}
+          // tagsStyles={tagsStyles}
         />
       </View>
 
@@ -159,6 +166,5 @@ const styles = StyleSheet.create({
   },
   notificationIcon: {
     paddingRight: 5,
-
   },
 });
