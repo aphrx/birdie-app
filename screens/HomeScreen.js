@@ -24,9 +24,7 @@ const HomeScreen = ({ navigation }) => {
       <ScrollView>
         {
         homeFeed.map((toot) => (
-          <TouchableOpacity onPress={() => navigation.navigate('Toot', {toot: toot})}>
             <Toot data={toot} />
-            </TouchableOpacity>
           ))
         }
       </ScrollView>

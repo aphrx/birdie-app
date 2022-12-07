@@ -6,14 +6,14 @@ import dateFormat from "dateformat";
 // import image from "../assets/drake.jpg";
 import TootIcon from "./TootIcon";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from '@react-navigation/native';
 
 export default Toot = (props) => {
   return (
     <>
       <View>
         <View style={styles.container}>
-          {console.log("DATTAAA")}
-          {console.log(props.data)}
           {props.data.reblog != undefined ? (
             <>
               <View style={styles.notificationHeader}>
@@ -49,14 +49,20 @@ export default Toot = (props) => {
 };
 
 const TootBody = ({ data }) => {
+
+  const navigation = useNavigation();
+
   return (
     <View style={styles.outerContainer}>
       {console.log(data)}
-      <Avatar src={data.account.avatar_static} style={styles.avatar} />
+      <Avatar user={data.account} style={styles.avatar} />
+      <TouchableOpacity onPress={() => navigation.navigate('Toot', {toot: data})}>
+
       <View style={styles.innerContainer}>
         <User data={data} />
         <InnerTweet data={data} />
       </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -104,7 +110,9 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     marginLeft: 10,
+    marginRight:50,
     flex: 1,
+
   },
   iconContainer: {
     flexDirection: "row",

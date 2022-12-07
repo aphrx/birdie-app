@@ -15,33 +15,32 @@ import { useEffect } from "react";
 import { fetchProfile } from "./api/fetch";
 import { userState } from "./api/atoms";
 import NotificationScreen from "./screens/NotificationScreen";
-import { SearchBar } from 'react-native-elements';
-
+import { SearchBar } from "react-native-elements";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const App = () => {
-
-
-
-
   return (
     <RecoilRoot>
-      
       <RootSiblingParent>
         <View style={{ flex: 1, backgroundColor: "#000" }}>
-          <StatusBar backgroundColor="black" barStyle="light-content"/>
+          <StatusBar backgroundColor="black" barStyle="light-content" />
           <NavigationContainer>
             <Stack.Navigator initialRouteName="Main">
               <Stack.Screen
-              name="Main"
+                name="Main"
                 component={MainScreen}
-                options={{ headerShown: false}}
+                options={{ headerShown: false }}
               />
-              <Stack.Screen 
-                name="Toot"
-                component={TootScreen}
+              <Stack.Screen name="Toot" component={TootScreen} />
+              <Stack.Screen
+                name="UserProfile"
+                component={ProfileScreen}
+                options={{
+                  headerTitle: "Profile",
+                  headerShown: false,
+                }}
               />
             </Stack.Navigator>
           </NavigationContainer>
@@ -56,58 +55,58 @@ const MainScreen = () => {
 
   useEffect(async () => {
     async function fetchData() {
-    const res = await fetchProfile()
-    setUser(res)
+      const res = await fetchProfile();
+      setUser(res);
     }
     fetchData();
-  }, [])
+  }, []);
 
-  return <Tab.Navigator
-  initialRouteName="Home"
-  tabBarOptions={{ showLabel: false }}
-  screenOptions={{
-    tabBarActiveTintColor: 'black',
-  }}
->
-  <Tab.Screen
-    name="Home"
-    component={HomeScreen}
-    options={{
-      tabBarIcon: ({ color }) => (
-        <FontAwesome5 name="home" size={25} color={color} />
-      ),
-      headerTitle: () => (
-        <Image
-          style={{ width: 30, height: 30 }}
-          source={require("./assets/logo.png")}
-        />
-      ),
-      // headerLeft: (props) => 
-      // <TouchableOpacity onClick={() => navigator.na}>
-      //   <FontAwesome5 name="user" size={25}/>
-      //   </TouchableOpacity>
-    }}
-  />
-  <Tab.Screen
-    name="Search"
-    component={SearchScreen}
-    options={{
-      tabBarIcon: ({ color }) => (
-        <FontAwesome5 name="search" size={25} color={color} />
-      ),
-    
-    }}
-  />
-  <Tab.Screen
-    name="Notifications"
-    component={NotificationScreen}
-    options={{
-      tabBarIcon: ({ color }) => (
-        <FontAwesome5 name="bell" size={25} color={color} />
-      ),
-    }}
-  />
-  {/* <Tab.Screen
+  return (
+    <Tab.Navigator
+      initialRouteName="Home"
+      tabBarOptions={{ showLabel: false }}
+      screenOptions={{
+        tabBarActiveTintColor: "black",
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <FontAwesome5 name="home" size={25} color={color} />
+          ),
+          headerTitle: () => (
+            <Image
+              style={{ width: 30, height: 30 }}
+              source={require("./assets/logo.png")}
+            />
+          ),
+          // headerLeft: (props) =>
+          // <TouchableOpacity onClick={() => navigator.na}>
+          //   <FontAwesome5 name="user" size={25}/>
+          //   </TouchableOpacity>
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <FontAwesome5 name="search" size={25} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Notifications"
+        component={NotificationScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <FontAwesome5 name="bell" size={25} color={color} />
+          ),
+        }}
+      />
+      {/* <Tab.Screen
     name="Messages"
     component={SearchScreen}
     options={{
@@ -116,20 +115,21 @@ const MainScreen = () => {
       ),
     }}
   /> */}
-  <Tab.Screen
-    name="Profile"
-    component={ProfileScreen}
-    initialParams={{user: user}}
-    options={{
-      tabBarIcon: ({ color }) => (
-        <FontAwesome5 name="user" size={25} color={color} />
-        // <Avatar src={user.avatar} size={25}/>
-      ),
-      headerTitle: user.display_name,
-      headerShown: false
-    }}
-  />
-  </Tab.Navigator>
-}
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        initialParams={{ user: user }}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <FontAwesome5 name="user" size={25} color={color} />
+            // <Avatar src={user.avatar} size={25}/>
+          ),
+          headerTitle: user.display_name,
+          headerShown: false,
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
 
 export default App;

@@ -12,23 +12,24 @@ import dateFormat from "dateformat";
 import RenderHTML from "react-native-render-html";
 import Toot from "../components/Toot";
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = ({ route, navigation }) => {
+  const { userObj, isExternal } = route.params;
+
   const [user, setUser] = useRecoilState(userState);
   const [toots, setToots] = useRecoilState(userTootState);
   useEffect(async () => {
     async function fetchData() {
       const res = await fetchProfile();
       setUser(res);
-      return res.id;
     }
 
     async function fetchTootData(id) {
       const tootRes = await fetchToots(id);
-      console.log(tootRes);
       setToots(tootRes);
     }
-    userId = await fetchData();
-    fetchTootData(userId);
+
+    isExternal ? setUser(userObj) : fetchData() 
+    isExternal ? fetchTootData(userObj.id) : fetchTootData(user.id);
   }, []);
 
   return (
@@ -40,7 +41,7 @@ const ProfileScreen = ({ navigation }) => {
               "https://www.rpnation.com/gallery/twitter-header-new-york-002.30338/full"
             }
           />
-          <Avatar style={styles.profile} src={user.avatar_static} />
+          <Avatar style={styles.profile} user={user} isProfile={1}/>
           <View style={styles.metaHeader}>
             <Text style={styles.displayName}>{user.display_name}</Text>
             <View style={styles.subHeader}>
