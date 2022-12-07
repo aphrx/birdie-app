@@ -4,7 +4,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { useRecoilState } from "recoil";
 import { userState, userTootState } from "../api/atoms";
 import { fetchProfile, fetchToots } from "../api/fetch";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { ScrollView } from "react-native-gesture-handler";
 import Avatar from "../components/Avatar";
@@ -17,6 +17,7 @@ const ProfileScreen = ({ route, navigation }) => {
 
   const [user, setUser] = useRecoilState(userState);
   const [toots, setToots] = useRecoilState(userTootState);
+
   useEffect(async () => {
     async function fetchData() {
       const res = await fetchProfile();
@@ -159,6 +160,9 @@ const styles = StyleSheet.create({
   followMetaHeader: {
     flexDirection: "row",
   },
+  userStats: {
+    paddingBottom:10
+  }
 });
 
 export default ProfileScreen;

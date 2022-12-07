@@ -1,13 +1,11 @@
 import { View, Text, StyleSheet } from "react-native";
-import { RichEditor } from "react-native-pell-rich-editor";
 import RenderHtml from "react-native-render-html";
 import Avatar from "./Avatar";
-import dateFormat from "dateformat";
-// import image from "../assets/drake.jpg";
+
 import TootIcon from "./TootIcon";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 export default Toot = (props) => {
   return (
@@ -50,43 +48,42 @@ export default Toot = (props) => {
 
 const TootBody = ({ data }) => {
 
-  const navigation = useNavigation();
-
   return (
     <View style={styles.outerContainer}>
       {console.log(data)}
       <Avatar user={data.account} style={styles.avatar} />
-      <TouchableOpacity onPress={() => navigation.navigate('Toot', {toot: data})}>
 
       <View style={styles.innerContainer}>
         <User data={data} />
         <InnerTweet data={data} />
       </View>
-      </TouchableOpacity>
     </View>
   );
 };
 
 export const InnerTweet = ({ data }) => {
-  // const tagsStyles = {
-  //   a: {
-  //     color: 'green',
-  //   }
-  // };
+  const navigation = useNavigation();
 
   return (
     <>
-      <View style={styles.contentContainer}>
-        <RenderHtml
-          source={{
-            html:
-              "<div style='font-family: HelveticaNeue; font-size: 16px;'>" +
-              data.content.replace("<p>", "<span>").replaceAll("</p>", "</span>").replaceAll("<a", "<a style='text-decoration: none'") +
-              "</div>",
-          }}
-          // tagsStyles={tagsStyles}
-        />
-      </View>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Toot", { toot: data })}
+      >
+        <View style={styles.contentContainer}>
+          <RenderHtml
+            source={{
+              html:
+                "<div style='font-family: HelveticaNeue; font-size: 16px;'>" +
+                data.content
+                  .replace("<p>", "<span>")
+                  .replaceAll("</p>", "</span>")
+                  .replaceAll("<a", "<a style='text-decoration: none'") +
+                "</div>",
+            }}
+            // tagsStyles={tagsStyles}
+          />
+        </View>
+      </TouchableOpacity>
 
       <View style={styles.iconContainer}>
         <TootIcon icon={"comment-outline"} value={data.replies_count} />
@@ -110,9 +107,8 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     marginLeft: 10,
-    marginRight:50,
+    marginRight: 50,
     flex: 1,
-
   },
   iconContainer: {
     flexDirection: "row",

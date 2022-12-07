@@ -23,17 +23,19 @@ export default Notification = (props) => {
 
         <View style={styles.outerContainer}>
           <Avatar
-            src={props.data.account.avatar_static}
+            user={props.data.account}
             style={styles.avatar}
           />
           <View style={styles.innerContainer}>
             <View style={styles.userCard}>
               <User data={props.data} />
-                {props.data.type == "follow" ? (<TouchableOpacity style={styles.followButton}>
+              {props.data.type == "follow" ? (
+                <TouchableOpacity style={styles.followButton}>
                   <Text style={styles.followText}>Follow</Text>
-                </TouchableOpacity>): <></>}
-              
-              
+                </TouchableOpacity>
+              ) : (
+                <></>
+              )}
             </View>
             <View style={styles.contentContainer}>
               {props.data.type == "mention" ? (
@@ -42,7 +44,6 @@ export default Notification = (props) => {
                 <></>
               )}
             </View>
-
           </View>
         </View>
       </View>
@@ -60,9 +61,7 @@ export default Notification = (props) => {
 
 const Mention = (data) => {
   console.log(data);
-  return (
-    <InnerTweet data={data.data.status} />
-  );
+  return <InnerTweet data={data.data.status} />;
 };
 
 const styles = StyleSheet.create({
@@ -125,18 +124,17 @@ const styles = StyleSheet.create({
     padding: 2,
     paddingRight: 5,
   },
-  followButton:{
-    backgroundColor: 'black',
+  followButton: {
+    backgroundColor: "black",
     paddingHorizontal: 30,
     paddingVertical: 10,
-    borderRadius: 20
+    borderRadius: 20,
   },
   followText: {
     color: "white",
-
   },
   userCard: {
-    flex:1, 
-    flexDirection: "row"
-  }
+    flex: 1,
+    flexDirection: "row",
+  },
 });

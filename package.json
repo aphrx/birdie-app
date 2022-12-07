@@ -24,6 +24,7 @@
     "react-native-dotenv": "^3.4.2",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^2.8.0",
+    "react-native-pager-view": "6.0.1",
     "react-native-pell-rich-editor": "^1.8.8",
     "react-native-reanimated": "^2.13.0",
     "react-native-render-html": "^6.3.4",
