@@ -107,7 +107,6 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     marginLeft: 10,
-    marginRight: 50,
     flex: 1,
   },
   iconContainer: {

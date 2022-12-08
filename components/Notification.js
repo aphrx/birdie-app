@@ -5,6 +5,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import User from "./User";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { InnerTweet } from "./Toot";
+import { FollowButton } from "./FollowButton";
 
 export default Notification = (props) => {
   return (
@@ -30,9 +31,7 @@ export default Notification = (props) => {
             <View style={styles.userCard}>
               <User data={props.data} />
               {props.data.type == "follow" ? (
-                <TouchableOpacity style={styles.followButton}>
-                  <Text style={styles.followText}>Follow</Text>
-                </TouchableOpacity>
+                <FollowButton user_id={props.data.account.id}/>
               ) : (
                 <></>
               )}

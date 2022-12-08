@@ -50,3 +50,13 @@ export const fetchToots = async (id) => {
   );
   return response.data;
 };
+
+export const fetchFollowStatus = async (id) => {
+  const response = await axios.get(
+    "https://mas.to/api/v1/accounts/relationships?id=" + id,
+    {
+      headers: params,
+    }
+  );
+  return response.data;
+};

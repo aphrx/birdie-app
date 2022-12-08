@@ -25,3 +25,8 @@ export const userTootState = atom({
   key: "userTootState",
   default: []
 });
+
+export const userFollowState = atom({
+  key: "userFollowState",
+  default: []
+});

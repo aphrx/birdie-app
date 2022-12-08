@@ -25,11 +25,9 @@ const NotificationScreen = ({ navigation }) => {
     <View style={styles.container}>
       <ScrollView>
         {
-        notifications.map((notification) => (
-          <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
+        notifications.map((notification) => 
             <Notification data={notification} />
-            </TouchableOpacity>
-          ))
+          )
         }
       </ScrollView>
     </View>
