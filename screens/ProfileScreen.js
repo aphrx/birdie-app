@@ -1,8 +1,5 @@
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Text, View, StyleSheet } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { useRecoilState } from "recoil";
-import { userState, userTootState } from "../api/atoms";
 import { fetchProfile, fetchToots } from "../api/fetch";
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
@@ -11,27 +8,40 @@ import Avatar from "../components/Avatar";
 import dateFormat from "dateformat";
 import RenderHTML from "react-native-render-html";
 import Toot from "../components/Toot";
+import { FollowButton } from "../components/FollowButton";
 
 const ProfileScreen = ({ route, navigation }) => {
   const { userObj, isExternal } = route.params;
 
-  const [user, setUser] = useRecoilState(userState);
-  const [toots, setToots] = useRecoilState(userTootState);
+  const [user, setUser] = useState([]);
+  const [toots, setToots] = useState([]);
 
   useEffect(async () => {
     async function fetchData() {
       const res = await fetchProfile();
       setUser(res);
+      return res.id;
     }
 
     async function fetchTootData(id) {
-      const tootRes = await fetchToots(id);
-      setToots(tootRes);
+      setToots(await fetchToots(id));
     }
 
-    isExternal ? setUser(userObj) : fetchData() 
-    isExternal ? fetchTootData(userObj.id) : fetchTootData(user.id);
+    if (isExternal) {
+      setUser(userObj);
+      fetchTootData(userObj.id);
+    } else {
+      fetchTootData(await fetchData());
+    }
   }, []);
+
+  const cleanHTML = (html) => {
+    return html !== undefined ? (
+      html.replace("<p>", "<span>").replace("</p>", "</span>")
+    ) : (
+      <></>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -42,7 +52,10 @@ const ProfileScreen = ({ route, navigation }) => {
               "https://www.rpnation.com/gallery/twitter-header-new-york-002.30338/full"
             }
           />
-          <Avatar style={styles.profile} user={user} isProfile={1}/>
+          <View style={styles.avatarRow}>
+            <Avatar style={styles.profile} user={user} isProfile={1} />
+            <FollowButton />
+          </View>
           <View style={styles.metaHeader}>
             <Text style={styles.displayName}>{user.display_name}</Text>
             <View style={styles.subHeader}>
@@ -52,9 +65,7 @@ const ProfileScreen = ({ route, navigation }) => {
                   source={{
                     html:
                       "<div style='font-family: HelveticaNeue; font-size: 16px;'>" +
-                      user.note
-                        .replace("<p>", "<span>")
-                        .replace("</p>", "</span>") +
+                      cleanHTML(user.note) +
                       "</div>",
                   }}
                 />
@@ -89,7 +100,6 @@ const ProfileScreen = ({ route, navigation }) => {
           </View>
         </View>
         {toots.map((toot) => (
-          
           <Toot data={toot} />
         ))}
       </ScrollView>
@@ -128,13 +138,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderColor: "white",
     borderWidth: 5,
-    position: "absolute",
-    margin: 20,
-    transform: [
-      {
-        translateY: 80,
-      },
-    ],
+    margin: 0,
   },
   username: {
     color: "darkgray",
@@ -161,8 +165,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   userStats: {
-    paddingBottom:10
-  }
+    paddingBottom: 10,
+  },
+  avatarRow: {
+    flexDirection: "row",
+    flex: 1,
+    position: "absolute",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    padding: 20,
+    width: "100%",
+    transform: [
+      {
+        translateY: 80,
+      },
+    ],  
+  },
 });
 
 export default ProfileScreen;

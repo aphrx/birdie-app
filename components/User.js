@@ -1,10 +1,4 @@
 import { View, Text, StyleSheet } from "react-native";
-import { RichEditor } from "react-native-pell-rich-editor";
-import RenderHtml from "react-native-render-html";
-import Avatar from "./Avatar";
-import dateFormat from "dateformat";
-// import image from "../assets/drake.jpg";
-import TootIcon from "./TootIcon";
 
 export default User = (props) => {
   return (

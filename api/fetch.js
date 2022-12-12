@@ -1,12 +1,12 @@
 import axios from "axios";
-import { CODE } from "@env";
+import { SERVER, CODE } from "@env";
 
 const params = {
   Authorization: "Bearer " + CODE,
 };
 
 export const fetchTimeline = async () => {
-  const response = await axios.get("https://mas.to/api/v1/timelines/home", {
+  const response = await axios.get(SERVER+ "/api/v1/timelines/home", {
     headers: params,
   });
   return response.data;
@@ -14,28 +14,28 @@ export const fetchTimeline = async () => {
 
 export const fetchProfile = async () => {
   const response = await axios.get(
-    "https://mas.to/api/v1/accounts/verify_credentials",
+    SERVER+"/api/v1/accounts/verify_credentials",
     { headers: params }
   );
   return response.data;
 };
 
 export const fetchNotifications = async () => {
-  const response = await axios.get("https://mas.to/api/v1/notifications", {
+  const response = await axios.get(SERVER+"/api/v1/notifications", {
     headers: params,
   });
   return response.data;
 };
 
 export const fetchTrends = async () => {
-  const response = await axios.get("https://mas.to/api/v1/trends/tags", {
+  const response = await axios.get(SERVER+"/api/v1/trends/tags", {
     headers: params,
   });
   return response.data;
 };
 
 export const fetchAccount = async (id) => {
-  const response = await axios.get("https://mas.to/api/v1/accounts/" + id, {
+  const response = await axios.get(SERVER+"/api/v1/accounts/" + id, {
     headers: params,
   });
   return response.data;
@@ -43,7 +43,7 @@ export const fetchAccount = async (id) => {
 
 export const fetchToots = async (id) => {
   const response = await axios.get(
-    "https://mas.to/api/v1/accounts/" + id + "/statuses?exclude_replies=true",
+    SERVER+"/api/v1/accounts/" + id + "/statuses?exclude_replies=true",
     {
       headers: params,
     }
@@ -53,7 +53,7 @@ export const fetchToots = async (id) => {
 
 export const fetchFollowStatus = async (id) => {
   const response = await axios.get(
-    "https://mas.to/api/v1/accounts/relationships?id=" + id,
+    SERVER+"/api/v1/accounts/relationships?id=" + id,
     {
       headers: params,
     }

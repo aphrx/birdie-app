@@ -13,12 +13,6 @@ export default Trend = (props) => {
   );
 };
 
-const sumOfUses = () => {
-  let uses = 0;
-  
-
-}
-
 const styles = StyleSheet.create({
   container: { paddingVertical: 10, paddingHorizontal: 15 },
   trendingTitle: {

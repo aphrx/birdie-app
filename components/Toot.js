@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import RenderHtml from "react-native-render-html";
 import Avatar from "./Avatar";
 
-import TootIcon from "./TootIcon";
+import TootIcon, { FavouriteIcon, ReblogIcon } from "./TootIcon";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
@@ -50,7 +50,6 @@ const TootBody = ({ data }) => {
 
   return (
     <View style={styles.outerContainer}>
-      {console.log(data)}
       <Avatar user={data.account} style={styles.avatar} />
 
       <View style={styles.innerContainer}>
@@ -87,8 +86,8 @@ export const InnerTweet = ({ data }) => {
 
       <View style={styles.iconContainer}>
         <TootIcon icon={"comment-outline"} value={data.replies_count} />
-        <TootIcon icon={"repeat-variant"} value={data.reblogs_count} />
-        <TootIcon icon={"heart-outline"} value={data.favourites_count} />
+        <ReblogIcon value={data} />
+        <FavouriteIcon value={data} />
         <TootIcon icon={"share-outline"} />
       </View>
     </>

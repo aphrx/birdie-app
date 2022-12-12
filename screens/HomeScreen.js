@@ -1,17 +1,16 @@
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useRecoilState } from 'recoil';
 import { homeFeedState } from "../api/atoms";
 import Toot from "../components/Toot";
 import { ScrollView } from "react-native-gesture-handler";
 import { useEffect } from "react";
 import { fetchTimeline } from "../api/fetch";
-import { StatusBar } from "expo-status-bar";
 
 const HomeScreen = ({ navigation }) => {
 
   const [homeFeed, setHomeFeed] = useRecoilState(homeFeedState);
 
-  useEffect(async () => {
+  useEffect(() => {
     async function fetchData() {
     const res = await fetchTimeline()
     setHomeFeed(res)

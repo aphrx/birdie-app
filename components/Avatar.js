@@ -1,4 +1,4 @@
-import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export default Avatar = ({ user, style, isProfile }) => {

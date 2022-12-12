@@ -8,13 +8,7 @@ import Trend from "../components/Trend";
 const SearchScreen = ({ navigation }) => {
   const [trends, setTrends] = useRecoilState(trendState);
 
-  useEffect(async () => {
-    async function fetchData() {
-      const res = await fetchTrends();
-      setTrends(res);
-    }
-    fetchData();
-  }, []);
+  useEffect(async () => setTrends(await fetchTrends()), []);
 
   return (
     <View style={styles.container}>

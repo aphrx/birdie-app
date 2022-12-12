@@ -1,9 +1,7 @@
-import { View, Text, StyleSheet, ShadowPropTypesIOS } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import Avatar from "./Avatar";
-import RenderHtml, { RenderHTML } from "react-native-render-html";
 import { FontAwesome5 } from "@expo/vector-icons";
 import User from "./User";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { InnerTweet } from "./Toot";
 import { FollowButton } from "./FollowButton";
 
@@ -59,7 +57,6 @@ export default Notification = (props) => {
 };
 
 const Mention = (data) => {
-  console.log(data);
   return <InnerTweet data={data.data.status} />;
 };
 

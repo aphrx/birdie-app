@@ -1,33 +1,50 @@
 import { useEffect, useState } from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
-import { useRecoilState } from "recoil";
-import { userFollowState } from "../api/atoms";
 import { fetchFollowStatus } from "../api/fetch";
 import { setFollow, setUnfollow } from "../api/set";
 
 export const FollowButton = ({ user_id }) => {
   const [relationship, setRelationship] = useState(0);
+  const [follow, setIsFollow] = useState(0);
 
-  useEffect(async () => {
+  useEffect(() => {
     async function fetchData() {
       const res = await fetchFollowStatus(user_id);
       setRelationship(res[0]);
-      console.log(res);
     }
     fetchData();
   }, []);
 
+  useEffect(() => {
+    async function fetchData() {
+      setIsFollow(relationship.following)
+    }
+    fetchData();
+  }, [relationship]);
+
   return (
     <View style={styles.followContainer}>
-      {relationship.following ? 
-       <TouchableOpacity style={styles.followingButton} onPress={() => setUnfollow(user_id)}>
-       <Text style={styles.followingText}>Following</Text>
-     </TouchableOpacity>
-       : 
-        <TouchableOpacity style={styles.followButton} onPress={() => setFollow(user_id)}>
+      {follow ? (
+        <TouchableOpacity
+          style={styles.followingButton}
+          onPress={() => {
+            setUnfollow(user_id);
+            setIsFollow(false);
+          }}
+        >
+          <Text style={styles.followingText}>Following</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={styles.followButton}
+          onPress={() => {
+            setFollow(user_id);
+            setIsFollow(true);
+          }}
+        >
           <Text style={styles.followText}>Follow</Text>
         </TouchableOpacity>
-      }
+      )}
     </View>
   );
 };
@@ -100,9 +117,9 @@ const styles = StyleSheet.create({
   },
   followingButton: {
     backgroundColor: "white",
-    borderStyle: 'solid',
-    borderColor: 'black',
-    borderWidth: 1, 
+    borderStyle: "solid",
+    borderColor: "black",
+    borderWidth: 1,
     paddingHorizontal: 30,
     paddingVertical: 10,
     borderRadius: 20,

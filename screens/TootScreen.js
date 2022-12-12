@@ -1,7 +1,6 @@
-import { Text, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Toot from "../components/Toot";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { fetchTimeline } from "../api/fetch";
+import { ScrollView } from "react-native-gesture-handler";
 
 const TootScreen = ({ route, navigation }) => {
 
@@ -10,7 +9,6 @@ const TootScreen = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        {console.log(toot)}
         <Toot data={toot} />
       </ScrollView>
     </View>

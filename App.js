@@ -11,11 +11,10 @@ import SearchScreen from "./screens/SearchScreen";
 import TootScreen from "./screens/TootScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 import ProfileScreen from "./screens/ProfileScreen";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchProfile } from "./api/fetch";
 import { userState } from "./api/atoms";
 import NotificationScreen from "./screens/NotificationScreen";
-import { SearchBar } from "react-native-elements";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -51,16 +50,6 @@ const App = () => {
 };
 
 const MainScreen = () => {
-  const [user, setUser] = useRecoilState(userState);
-
-  useEffect(async () => {
-    async function fetchData() {
-      const res = await fetchProfile();
-      setUser(res);
-    }
-    fetchData();
-  }, []);
-
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -106,25 +95,15 @@ const MainScreen = () => {
           ),
         }}
       />
-      {/* <Tab.Screen
-    name="Messages"
-    component={SearchScreen}
-    options={{
-      tabBarIcon: ({ color }) => (
-        <FontAwesome5 name="envelope" size={25} color={color} />
-      ),
-    }}
-  /> */}
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}
-        initialParams={{ user: user }}
+        initialParams={{ isExternal: 0 }}
         options={{
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="user" size={25} color={color} />
             // <Avatar src={user.avatar} size={25}/>
           ),
-          headerTitle: user.display_name,
           headerShown: false,
         }}
       />
