@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { fetchProfile, fetchToots } from "../api/fetch";
 import { useEffect, useState } from "react";
@@ -49,12 +49,12 @@ const ProfileScreen = ({ route, navigation }) => {
         <View>
           <Header
             src={
-              "https://www.rpnation.com/gallery/twitter-header-new-york-002.30338/full"
+              user.header_static
             }
           />
           <View style={styles.avatarRow}>
             <Avatar style={styles.profile} user={user} isProfile={1} />
-            <FollowButton />
+            {isExternal?<FollowButton />:<></>}
           </View>
           <View style={styles.metaHeader}>
             <Text style={styles.displayName}>{user.display_name}</Text>
@@ -91,10 +91,12 @@ const ProfileScreen = ({ route, navigation }) => {
                 </View>
               </View>
               <View style={styles.userStats}>
+                <TouchableOpacity onPress={() => navigation.navigate("Follow", {user: user, isFollower: 1})} >
                 <View style={styles.followHeader}>
                   <Text style={styles.followValue}>{user.followers_count}</Text>
                   <Text style={styles.followTitle}>{"Followers"}</Text>
                 </View>
+                </TouchableOpacity>
               </View>
             </View>
           </View>

@@ -6,6 +6,7 @@ import TootIcon, { FavouriteIcon, ReblogIcon } from "./TootIcon";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import LinkCard from "./LinkCard";
 
 export default Toot = (props) => {
   return (
@@ -81,6 +82,8 @@ export const InnerTweet = ({ data }) => {
             }}
             // tagsStyles={tagsStyles}
           />
+          {data.card?<LinkCard link={data.card} />:<></>}
+
         </View>
       </TouchableOpacity>
 

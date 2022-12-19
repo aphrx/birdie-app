@@ -1,8 +1,9 @@
 {
   "expo": {
-    "name": "birdie-app",
-    "slug": "birdie-app",
-    "version": "1.0.0",
+    "name": "Brdi",
+    "slug": "brdi",
+    "scheme": "brdi",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -18,7 +19,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aphrx.brdi"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,6 +30,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ef000827-4f8c-45b7-af7e-4888fb45ba6a"
+      }
     }
   }
 }

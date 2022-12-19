@@ -41,9 +41,33 @@ export const fetchAccount = async (id) => {
   return response.data;
 };
 
+export const fetchFollowers = async (id) => {
+  const response = await axios.get(SERVER+"/api/v1/accounts/" + id + "/followers", {
+    headers: params,
+  });
+  return response.data;
+};
+
+export const fetchFollowings = async (id) => {
+  const response = await axios.get(SERVER+"/api/v1/accounts/" + id + "/following", {
+    headers: params,
+  });
+  return response.data;
+};
+
 export const fetchToots = async (id) => {
   const response = await axios.get(
     SERVER+"/api/v1/accounts/" + id + "/statuses?exclude_replies=true",
+    {
+      headers: params,
+    }
+  );
+  return response.data;
+};
+
+export const fetchHashtagTimeline = async (tag) => {
+  const response = await axios.get(
+    SERVER+"/api/v1/timelines/tag/" + tag,
     {
       headers: params,
     }

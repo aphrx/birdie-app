@@ -2,9 +2,11 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import Notification from "../components/Notification";
 import { fetchNotifications } from "../api/fetch";
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { notificationState } from "../api/atoms";
 
 const NotificationScreen = ({ navigation }) => {
-  const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useRecoilState(notificationState);
 
   useEffect(() => {
     async function fetchData() {

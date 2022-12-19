@@ -14,7 +14,11 @@ web-build/
 .DS_Store
 
 .env
+.env.production
 yarn-error.log
 package-lock.json
 yarn.lock
 .vscode
+
+*.jpg
+*.json

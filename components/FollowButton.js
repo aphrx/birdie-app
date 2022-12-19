@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     paddingRight: 5,
   },
   followButton: {
-    backgroundColor: "black",
+    backgroundColor: "#6364ff",
     paddingHorizontal: 30,
     paddingVertical: 10,
     borderRadius: 20,
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   followingButton: {
     backgroundColor: "white",
     borderStyle: "solid",
-    borderColor: "black",
+    borderColor: "#6364ff",
     borderWidth: 1,
     paddingHorizontal: 30,
     paddingVertical: 10,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   followingText: {
-    color: "black",
+    color: "#6364ff",
   },
   userCard: {
     flex: 1,

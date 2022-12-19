@@ -4,17 +4,27 @@ import { useRecoilState } from "recoil";
 import { useEffect } from "react";
 import { fetchTrends } from "../api/fetch";
 import Trend from "../components/Trend";
+import { TouchableOpacity } from "react-native";
 
 const SearchScreen = ({ navigation }) => {
   const [trends, setTrends] = useRecoilState(trendState);
 
-  useEffect(async () => setTrends(await fetchTrends()), []);
+  useEffect(() => {
+    async function fetchData() {
+      setTrends(await fetchTrends());
+    }
+    fetchData();
+  }, []);
 
   return (
     <View style={styles.container}>
       <ScrollView>
         {trends.map((trend) => (
-          <Trend data={trend} />
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Trending", { tag: trend.name })}
+          >
+            <Trend data={trend} />
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>

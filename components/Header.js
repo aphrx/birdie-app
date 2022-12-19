@@ -11,7 +11,8 @@ export default Header = (props) => {
 
 const styles = StyleSheet.create({
   header: {
-    height:130
+    height:130,
+    backgroundColor: "#6364ff"
   },
   container: {
     backgroundColor: "blue"

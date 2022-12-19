@@ -1,32 +1,44 @@
-import { TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { setFavourite, setReblog, setUnfavourite, setUnreblog } from "../api/set";
+import { StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
 
 export default TootIcon = (props) => {
   return (
-    <>
+    <View style={styles.tootIconContainer}>
       <MaterialCommunityIcons name={props.icon} size={18} color={props.colour?props.colour:"gray"} />
       <Text style={{ marginLeft: 5, color: props.colour?props.colour:"gray" }}>{props.value}</Text>
-    </>
+    </View>
   );
 };
 
 export const FavouriteIcon = (props) => {
+  const [count, setCount] = useState(props.value.favourites_count);
+  const [favourited, setFavourited] = useState(props.value.favourited);
+
+  useEffect(() => {
+    async function fetchData() {
+      favourited ? setCount(props.value.favourited ? count: count + 1) : setCount(props.value.favourited ?  count - 1: count);
+    }
+    fetchData();
+  }, [favourited]);
+
   return (
     <>
-      {props.value.favourited ? (
+      {favourited ? (
         <TouchableOpacity
           style={{
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
           }}
-          onPress={() => setUnfavourite(props.value.id)}
+          onPress={() => {setFavourited(false);setUnfavourite(props.value.id);}}
         >
           <TootIcon
             icon={"heart"}
             colour={"red"}
-            value={props.value.favourites_count}
+            value={count}
           />
         </TouchableOpacity>
       ) : (
@@ -36,11 +48,11 @@ export const FavouriteIcon = (props) => {
             alignItems: "center",
             justifyContent: "center",
           }}
-          onPress={() => setFavourite(props.value.id)}
+          onPress={() => {setFavourited(true);setFavourite(props.value.id);}}
         >
           <TootIcon
             icon={"heart-outline"}
-            value={props.value.favourites_count}
+            value={count}
           />
         </TouchableOpacity>
       )}
@@ -50,21 +62,32 @@ export const FavouriteIcon = (props) => {
 
 
 export const ReblogIcon = (props) => {
+
+  const [count, setCount] = useState(props.value.reblogs_count);
+  const [reblogged, setReblogged] = useState(props.value.reblogged);
+
+  useEffect(() => {
+    async function fetchData() {
+      reblogged ? setCount(props.value.reblogged ? count: count + 1) : setCount(props.value.reblogged ?  count - 1: count);
+    }
+    fetchData();
+  }, [reblogged]);
+
   return (
     <>
-      {props.value.reblogged ? (
+      {reblogged ? (
         <TouchableOpacity
           style={{
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
           }}
-          onPress={() => setUnreblog(props.value.id)}
+          onPress={() => {setReblogged(false);setUnreblog(props.value.id);}}
         >
           <TootIcon
             icon={"repeat-variant"}
             colour={"#19cf86"}
-            value={props.value.reblogs_count}
+            value={count}
           />
         </TouchableOpacity>
       ) : (
@@ -74,14 +97,18 @@ export const ReblogIcon = (props) => {
             alignItems: "center",
             justifyContent: "center",
           }}
-          onPress={() => setReblog(props.value.id)}
+          onPress={() => {setReblogged(true); setReblog(props.value.id);}}
         >
           <TootIcon
             icon={"repeat-variant"}
-            value={props.value.reblogs_count}
+            value={count}
           />
         </TouchableOpacity>
       )}
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  tootIconContainer: {flexDirection: "row"}
+})
