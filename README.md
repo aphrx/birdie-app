@@ -1,4 +1,4 @@
-![Birdie Logo](https://i.imgur.com/UD55f9T.png)
+![Birdie Logo](https://github.com/aphrx/brdi-app/blob/main/assets/icon.png)
 
 
 ## Environment Variables
