@@ -50,7 +50,7 @@ const App = ({}) => {
               name="Generate Toot"
               component={GenerateTootScreen}
               options={({ navigation }) => ({
-                headerShown: true,
+                headerShown: false,
                 title: false,
                 headerShadowVisible: false,
                 headerLeft: () => (

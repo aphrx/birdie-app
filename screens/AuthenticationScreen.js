@@ -1,8 +1,5 @@
 import { View, StyleSheet, Text, KeyboardAvoidingView } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import { fetchFollowers, fetchFollowings } from "../api/fetch";
 import { useEffect, useState } from "react";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Image } from "react-native";
 import { TouchableOpacity } from "react-native";

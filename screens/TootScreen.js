@@ -8,6 +8,8 @@ const TootScreen = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
+      {console.log("toot", toot.id)}
+
       <ScrollView>
         <Toot data={toot} />
       </ScrollView>

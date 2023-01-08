@@ -4,12 +4,32 @@ import { ScrollView } from "react-native-gesture-handler";
 import { TextInput } from "react-native";
 import { useState } from "react";
 import Avatar from "../components/Avatar";
+import { TouchableOpacity } from "react-native";
+import { postToot } from "../api/set";
 
 const GenerateTootScreen = ({ navigation }) => {
   const [toot, setToot] = useState(null);
+  
 
   return (
     <View style={styles.container}>
+      <View style={styles.headerRow}>
+      <TouchableOpacity
+                    style={styles.cancelButton}
+                    onPress={() => navigation.goBack()}
+                  >
+                    <Text style={styles.cancelText}>Cancel</Text>
+                  </TouchableOpacity>
+      <TouchableOpacity
+                    style={styles.tootButton}
+                    onPress={() => {
+                      postToot(toot);
+                      navigation.goBack();
+                    }}
+                  >
+                    <Text style={styles.tootText}>Toot</Text>
+                  </TouchableOpacity>
+      </View>
       <View style={styles.tootRow}>
         <Avatar
           style={styles.tootAvatar}
@@ -85,6 +105,29 @@ const styles = StyleSheet.create({
     flex: 0,
     marginRight: 40
   },
+  cancelText: {
+    color: "black",
+    fontSize: 16,
+  },
+  cancelButton: {
+    marginHorizontal: 20,
+  },
+  tootButton: {
+    backgroundColor: "#6364ff",
+    marginHorizontal: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 6,
+    borderRadius: 20,
+  },
+  tootText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  headerRow: {
+    marginTop: 60,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  }
 });
 
 export default GenerateTootScreen;
